@@ -47,6 +47,7 @@ if(!empty($_POST['login']) && !empty($_POST['pass'])){
 ?>
 <!DOCTYPE html>
 <html lang="et">
+<link rel="stylesheet" href="style-kasutaja.css">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
