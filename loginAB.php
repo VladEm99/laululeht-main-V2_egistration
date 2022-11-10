@@ -29,7 +29,7 @@ if(!empty($_POST['login']) && !empty($_POST['pass'])){
         if(isset($koduleht)){
             header("Location: $koduleht");
         } else{
-            header('Location: kontakt.php');
+            header('Location: laulud.php');
             exit();
         }
     } else {

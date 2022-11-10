@@ -24,5 +24,7 @@ global $yhendus;
     VALUES('$login', '$krypt')");
 
     $yhendus->close();
+
+    header('Location: loginAB.php');
 ?>
 
