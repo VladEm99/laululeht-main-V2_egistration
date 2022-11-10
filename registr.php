@@ -1,4 +1,5 @@
 <?php
+require_once ('conf.php');
 //lisame oma kasutajanimi, parooli, ja ab_nimi
 $serverinimi="localhost"; // d70420.mysql.zonevs.eu
 $kasutaja="vlad21"; // d70420_merk21
@@ -20,16 +21,16 @@ function puhastaAndmed($data){
     $data=stripslashes($data);
     return $data;
 }
-if(isset($_REQUEST["knimi"])&& isset($_REQUEST["psw"])) {
+if(isset($_REQUEST["nimi"])&& isset($_REQUEST["parool"])) {
 
-    $login = puhastaAndmed($_REQUEST["knimi"]);
-    $pass = puhastaAndmed($_REQUEST["psw"]);
+    $login = puhastaAndmed($_REQUEST["nimi"]);
+    $pass = puhastaAndmed($_REQUEST["parool"]);
     $sool = 'vagavagatekst';
     $krypt = crypt($pass, $sool);
 
 //kasutajanimi kontroll
-    $kask = $yhendus->prepare("SELECT id, unimi, psw FROM uuedkasutajad
-WHERE unimi=?");
+    $kask = $yhendus->prepare("SELECT id, nimi, parool FROM kasutajad
+WHERE nimi=?");
     $kask->bind_param("s", $login);
     $kask->bind_result($id, $kasutajanimi, $parool);
     $kask->execute();
@@ -46,11 +47,11 @@ WHERE unimi=?");
 
 // uue kasutaja lisamine andmetabeli sisse
     $kask = $yhendus->prepare("
-INSERT INTO uuedkasutajad(unimi, psw, isadmin) 
+INSERT INTO kasutajad(nimi, parool, onAdmin) 
 VALUES (?,?,?)");
     $kask->bind_param("ssi", $login, $krypt, $_REQUEST["admin"]);
     $kask->execute();
-    $_SESSION['unimi'] = $login;
+    $_SESSION['nimi'] = $login;
     $_SESSION['admin'] = true;
     header("location: laulud.php");
     $yhendus->close();
